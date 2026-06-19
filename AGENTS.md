@@ -62,10 +62,10 @@ Create `projects/<project-name>/runs/<run-folder>/`:
 
 ```
 <run-folder>/
-├── prompt.md      # verbatim copy of source prompt
-├── issues.md      # problems, failures, blockers
-├── notes.md       # observations, decisions, trade-offs
-└── output/        # all generated code and assets
+├── prompt.md      # always — verbatim copy of source prompt
+├── output/        # always — all generated code and assets
+├── issues.md      # only if there are problems, failures, or blockers
+└── notes.md       # only if there are observations worth recording
 ```
 
 ### 4. Output rules
@@ -78,10 +78,10 @@ Create `projects/<project-name>/runs/<run-folder>/`:
 ### 5. Execute
 
 1. Read `projects/<project-name>/project-brief.md` and the source prompt.
-2. Create run folder and copy prompt → `prompt.md`.
-3. Init `issues.md` and `notes.md` (header line is fine).
-4. Build the deliverable into `output/`.
-5. Log failures → `issues.md`. Log anything worth comparing → `notes.md`.
+2. Create run folder, copy prompt → `prompt.md`, create `output/`.
+3. Build the deliverable into `output/`.
+4. Create `issues.md` only if something failed or needs follow-up.
+5. Create `notes.md` only if there is something worth comparing across runs.
 
 ### 6. Do not
 
@@ -90,3 +90,4 @@ Create `projects/<project-name>/runs/<run-folder>/`:
 - Edit the source prompt file.
 - Guess the model slug — use the table or ask.
 - Skip `output/index.html` for web projects.
+- Create empty `issues.md` or `notes.md`.
