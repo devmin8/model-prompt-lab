@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pitchside — 3D Football Broadcast</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+    }
+  }
+  </script>
+</head>
+<body>
+  <canvas id="scene"></canvas>
+
+  <!-- ===================== SETUP ===================== -->
+  <div id="setup" class="screen">
+    <div class="setup-card">
+      <div class="brand"><span class="dot"></span>PITCHSIDE</div>
+      <p class="tagline">Premium 3D match broadcast</p>
+
+      <div class="teams-setup">
+        <div class="team-setup">
+          <label class="lbl">Home team</label>
+          <input id="homeName" class="field" value="CHELSEA" maxlength="14" />
+          <div class="colors">
+            <div class="color-pick">
+              <span>Kit</span><input id="homeKit" type="color" value="#1d4ed8" />
+            </div>
+            <div class="color-pick">
+              <span>Trim</span><input id="homeAccent" type="color" value="#ffffff" />
+            </div>
+          </div>
+        </div>
+
+        <div class="vs">VS</div>
+
+        <div class="team-setup">
+          <label class="lbl">Away team</label>
+          <input id="awayName" class="field" value="ARSENAL" maxlength="14" />
+          <div class="colors">
+            <div class="color-pick">
+              <span>Kit</span><input id="awayKit" type="color" value="#dc2626" />
+            </div>
+            <div class="color-pick">
+              <span>Trim</span><input id="awayAccent" type="color" value="#ffffff" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button id="kickoffBtn" class="primary-btn">KICK OFF</button>
+      <p class="hint">Scripted ~3-minute highlights · goals · cards · penalty</p>
+    </div>
+  </div>
+
+  <!-- ===================== HUD ===================== -->
+  <div id="hud" class="hidden">
+
+    <!-- Scoreboard -->
+    <div id="scoreboard">
+      <div class="sb-team home">
+        <span class="sb-name" id="sbHomeName">CHELSEA</span>
+        <span class="sb-crest" id="sbHomeCrest">CHE</span>
+      </div>
+      <div class="sb-centre">
+        <div class="sb-score"><span id="sbHomeScore">0</span><i>–</i><span id="sbAwayScore">0</span></div>
+        <div class="sb-clock"><span id="sbClock">00:00</span></div>
+        <div class="sb-phase" id="sbPhase">FIRST HALF</div>
+      </div>
+      <div class="sb-team away">
+        <span class="sb-crest" id="sbAwayCrest">ARS</span>
+        <span class="sb-name" id="sbAwayName">ARSENAL</span>
+      </div>
+    </div>
+
+    <!-- Goal overlay -->
+    <div id="goalOverlay" class="goal-hidden">
+      <div class="goal-banner"><span>GOAL!</span></div>
+      <div class="goal-body">
+        <div class="goal-portrait" id="goalPortrait">20</div>
+        <div class="goal-info">
+          <div class="goal-num-name"><b id="goalNumber">20</b><span id="goalName">COLE PALMER</span></div>
+          <div class="goal-minute" id="goalMinute">64'</div>
+          <div class="goal-assist" id="goalAssist">ASSIST: R. STERLING</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Commentary ticker -->
+    <div id="ticker">
+      <span class="ticker-tag">LIVE</span>
+      <div class="ticker-text" id="tickerText">Welcome to the Bridge.</div>
+    </div>
+
+    <!-- Control bar -->
+    <div id="controls">
+      <div class="ctl-group">
+        <button id="btnPause" class="ctl">❚❚ Pause</button>
+        <button id="btnResume" class="ctl">▶ Resume</button>
+        <button id="btnRestart" class="ctl">↻ Restart</button>
+        <button id="btnNew" class="ctl">＋ New Match</button>
+      </div>
+
+      <div class="ctl-speeds">
+        <button class="spd active" data-spd="1">1×</button>
+        <button class="spd" data-spd="2">2×</button>
+        <button class="spd" data-spd="3">3×</button>
+      </div>
+
+      <div class="ctl-timeline">
+        <div class="tl-track" id="tlTrack">
+          <div class="tl-progress" id="tlProgress"></div>
+          <div class="tl-markers" id="tlMarkers"></div>
+        </div>
+        <div class="tl-meta"><span id="tlClock">00:00</span><span class="live-pill" id="livePill">● LIVE</span></div>
+      </div>
+    </div>
+
+    <!-- Half time -->
+    <div id="halftime" class="screen mid hidden">
+      <div class="mid-card">
+        <div class="mid-head">HALF TIME</div>
+        <div class="mid-score" id="htScore">1 – 1</div>
+        <div class="mid-sub">Second half coming up…</div>
+      </div>
+    </div>
+
+    <!-- Full time -->
+    <div id="fulltime" class="screen mid hidden">
+      <div class="mid-card big">
+        <div class="mid-head">FULL TIME</div>
+        <div class="ft-teams">
+          <span id="ftHome">CHELSEA</span>
+          <span class="ft-score" id="ftScore">2 – 1</span>
+          <span id="ftAway">ARSENAL</span>
+        </div>
+        <div class="ft-potm">
+          <div class="ft-potm-label">PLAYER OF THE MATCH</div>
+          <div class="ft-potm-name"><span id="potmNum">20</span> <b id="potmName">COLE PALMER</b><i id="potmRating">9.2</i></div>
+        </div>
+        <div class="ft-moments">
+          <div class="ft-moments-label">KEY MOMENTS</div>
+          <ul id="ftMoments"></ul>
+        </div>
+        <button id="btnNew2" class="primary-btn">NEW MATCH</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="loadError" class="hidden"></div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
