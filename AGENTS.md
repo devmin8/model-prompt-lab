@@ -75,9 +75,29 @@ Create `projects/<project-name>/runs/<run-folder>/`:
 
 1. Read `projects/<project-name>/project-brief.md` and the source prompt.
 2. Create run folder, copy prompt → `prompt.md`, create `output/`.
-3. Build the deliverable into `output/`.
+3. Build the deliverable into `output/` **from scratch** — see [Benchmark isolation](#benchmark-isolation).
 4. Create `issues.md` only if something failed or needs follow-up.
 5. Create `notes.md` only if there is something worth comparing across runs.
+
+### Benchmark isolation
+
+Each run must be an independent implementation. Prior runs exist only for numbering and comparison — not as reference code.
+
+**Allowed inputs (read these only):**
+
+- `projects/<project-name>/project-brief.md`
+- The source prompt file (then copy verbatim to this run's `prompt.md`)
+- Assets explicitly linked in the prompt (e.g. `reference-images/`)
+
+**When listing `runs/` for the next `r##`:** read directory names only. Do not open, search, grep, or read any file inside existing run folders.
+
+**Forbidden during execution:**
+
+- Reading or searching under `projects/<project-name>/runs/` except directory listing for run numbering
+- Copying, adapting, or taking inspiration from any prior run's `output/`, `issues.md`, or `notes.md`
+- Codebase search or semantic search scoped to `runs/` or that surfaces prior run code
+
+Write all code only into the current run's `output/`. After the run folder exists, you may read files you created in **this** run's `output/` to fix or iterate — never sibling runs.
 
 ### 6. Do not
 
@@ -87,3 +107,4 @@ Create `projects/<project-name>/runs/<run-folder>/`:
 - Guess the model slug — use the table or ask.
 - Skip `output/index.html` for web projects.
 - Create empty `issues.md` or `notes.md`.
+- Read or reuse code from any other run folder (see [Benchmark isolation](#benchmark-isolation)).

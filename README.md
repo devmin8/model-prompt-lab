@@ -6,7 +6,7 @@ Test prompts across AI models and compare outputs side by side.
 
 ```
 model-prompt-lab/
-├── AGENTS.md                          # agent workflow (read by Cursor agents)
+├── AGENTS.md                          # agent workflow (read by coding agents)
 └── projects/
     └── <project-name>/
         ├── project-brief.md           # what the project is

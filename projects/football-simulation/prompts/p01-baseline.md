@@ -4,7 +4,7 @@ Build a browser-based 3D football match simulator using vanilla HTML/CSS/ES modu
 
 ### Reference
 
-![Pitchside broadcast UI reference](../reference-images/reference-image.png)
+![Pitchside broadcast UI reference](../../reference-images/reference-image.png)
 
 Use `projects/football-simulation/reference-images/reference-image.png` as the visual target for layout, styling, and broadcast feel. Match:
 
