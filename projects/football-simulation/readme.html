@@ -27,171 +27,163 @@
     },
   };
 </script>
-<style>
-  body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+<style type="text/tailwindcss">
+  body { text-rendering: optimizeLegibility; }
+
+  .event-pill {
+    @apply flex items-center gap-2 rounded-lg border border-zinc-900/[0.07] bg-white px-3 py-1.5 text-[13.5px] font-medium text-zinc-700 shadow-card xl:gap-2.5 xl:px-4 xl:py-2.5 xl:text-[15.5px];
+  }
+  .eval-card {
+    @apply rounded-lg border border-zinc-900/[0.07] bg-white px-4 py-3;
+  }
+  .eval-badge {
+    @apply flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-orange-100 font-mono text-[12px] font-medium text-orange-800;
+  }
+  .eval-label {
+    @apply text-[14px] font-medium leading-tight;
+  }
 </style>
 </head>
 <body class="bg-[#fafaf9] text-ink font-sans antialiased">
-  <main class="mx-auto max-w-[773px] px-6 py-12 sm:py-14">
+  <main class="mx-auto grid min-h-screen max-w-[1700px] items-center gap-10 px-8 py-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:gap-16 lg:px-16 xl:gap-20 xl:px-24">
 
-    <!-- ============ HEADER ============ -->
-    <header>
-      <h1 class="text-[40px] font-bold leading-none tracking-tight sm:text-5xl">3D Football simulator</h1>
-      <div class="mt-7 space-y-4 text-[17px] leading-relaxed text-zinc-600">
-        <p>Browser-based 3D football match simulator.</p>
-        <p>The simulation should run for 3 minutes and feel like a polished football match highlights package.</p>
-        <p>It should include realistic player movement, smooth ball movement, camera transitions, scoreboard overlays, and a TV broadcast-style presentation.</p>
-      </div>
-    </header>
-
-    <!-- ============ EVENTS ============ -->
-    <section class="mt-16">
-      <div class="flex items-baseline gap-3">
-        <span class="font-mono text-xs text-zinc-400">01</span>
-        <h2 class="text-xs font-semibold uppercase tracking-[0.12em] text-zinc-500">Events</h2>
-      </div>
-      <hr class="mt-3 border-zinc-900/[0.07]" />
-
-      <p class="mt-6 text-[15px] text-zinc-600">The scripted match should include the following events</p>
-
-      <ul class="mt-5 grid gap-x-6 gap-y-4 sm:grid-cols-[max-content_max-content] sm:justify-start">
-        <li class="flex items-center gap-3 text-[15px] font-medium text-zinc-700">
-          <span class="text-accent">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="9"/><path d="M12 7.2l3.6 2.6-1.4 4.2H9.8L8.4 9.8z"/>
-              <path d="M12 7.2V3.8M15.6 9.8l2.9-1M14.2 14l1.8 2.5M9.8 14L8 16.5M8.4 9.8l-2.9-1"/>
-            </svg>
-          </span>
-          Kickoff
-        </li>
-        <li class="flex items-center gap-3 text-[15px] font-medium text-zinc-700">
-          <span class="text-[#1f7a4d]">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="6" width="18" height="13" rx="1"/><path d="M8 6v13M13 6v13M3 11h18M3 15h18"/>
-            </svg>
-          </span>
-          Goal
-        </li>
-        <li class="flex items-center gap-3 text-[15px] font-medium text-zinc-700">
-          <span class="text-[#8a8a82]">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M10.3 3.7L20.3 13.7a1.5 1.5 0 0 1 0 2.1l-2.5 2.5a1.5 1.5 0 0 1-2.1 0L5.7 8.3"/>
-              <circle cx="6.5" cy="6.5" r="3"/>
-            </svg>
-          </span>
-          Foul
-        </li>
-        <li class="flex items-center gap-3 text-[15px] font-medium text-zinc-700">
-          <span class="text-[#d9a400]">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none">
-              <rect x="6.5" y="3" width="11" height="18" rx="2" transform="rotate(8 12 12)"/>
-            </svg>
-          </span>
-          Yellow card
-        </li>
-        <li class="flex items-center gap-3 text-[15px] font-medium text-zinc-700">
-          <span class="text-[#c0392b]">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none">
-              <rect x="6.5" y="3" width="11" height="18" rx="2" transform="rotate(8 12 12)"/>
-            </svg>
-          </span>
-          Red card
-        </li>
-        <li class="flex items-center gap-3 text-[15px] font-medium text-zinc-700">
-          <span class="text-accent">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/>
-            </svg>
-          </span>
-          Penalty
-        </li>
-        <li class="flex items-center gap-3 text-[15px] font-medium text-zinc-700">
-          <span class="text-ink">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/>
-            </svg>
-          </span>
-          Full time
-        </li>
-      </ul>
-    </section>
-
-    <!-- ============ REFERENCE IMAGE ============ -->
-    <section class="mt-16">
-      <div class="flex items-baseline gap-3">
-        <span class="font-mono text-xs text-zinc-400">02</span>
-        <h2 class="text-xs font-semibold uppercase tracking-[0.12em] text-zinc-500">Reference image</h2>
-      </div>
-      <hr class="mt-3 border-zinc-900/[0.07]" />
-
-      <figure class="mt-6">
-        <a href="reference-images/reference-image.png" target="_blank" rel="noopener" class="group block overflow-hidden rounded-xl border border-zinc-900/[0.07] bg-white shadow-card transition hover:border-accent/30">
-          <img src="reference-images/reference-image.png" alt="Reference image — televised broadcast UI for the 3D football match" class="block w-full transition duration-300 group-hover:scale-[1.01]" />
-        </a>
-        <figcaption class="mt-3 text-[13.5px] text-zinc-500">
-          The visual target for layout, styling and broadcast feel.
-        </figcaption>
-      </figure>
-    </section>
-
-    <!-- ============ EVALUATION ============ -->
-    <section class="mt-16">
-      <div class="flex items-baseline gap-3">
-        <span class="font-mono text-xs text-zinc-400">03</span>
-        <h2 class="text-xs font-semibold uppercase tracking-[0.12em] text-zinc-500">Evaluation Plan</h2>
-      </div>
-      <hr class="mt-3 border-zinc-900/[0.07]" />
-
-      <div class="mt-6 space-y-2 text-[15px] text-zinc-600">
-        <p>We will run the same prompt twice for each model.</p>
-        <p>Each output will be scored out of 10.</p>
-      </div>
-
-      <p class="mt-8 text-[13px] font-semibold uppercase tracking-[0.08em] text-zinc-500">Evaluation criteria</p>
-
-      <ol class="mt-4 overflow-hidden rounded-xl border border-zinc-900/[0.07] bg-white shadow-card divide-y divide-zinc-900/[0.06]">
-        <li class="flex items-center gap-4 px-5 py-4">
-          <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent-soft font-mono text-[13px] font-medium text-accent">1</span>
-          <span class="text-[15px] font-medium">Similarity to the reference image</span>
-        </li>
-        <li class="flex items-center gap-4 px-5 py-4">
-          <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent-soft font-mono text-[13px] font-medium text-accent">2</span>
-          <span class="text-[15px] font-medium">Code organization and folder structure</span>
-        </li>
-        <li class="px-5 py-4">
-          <div class="flex items-center gap-4">
-            <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent-soft font-mono text-[13px] font-medium text-accent">3</span>
-            <span class="text-[15px] font-medium">Overall visual design and polish</span>
-          </div>
-          <ul class="mt-3 space-y-2 pl-[44px]">
-            <li class="flex items-center gap-2.5 text-[14px] text-zinc-500">
-              <span class="h-1 w-1 shrink-0 rounded-full bg-zinc-400"></span>Animation quality
-            </li>
-            <li class="flex items-center gap-2.5 text-[14px] text-zinc-500">
-              <span class="h-1 w-1 shrink-0 rounded-full bg-zinc-400"></span>Ball movement and match flow
-            </li>
-            <li class="flex items-center gap-2.5 text-[14px] text-zinc-500">
-              <span class="h-1 w-1 shrink-0 rounded-full bg-zinc-400"></span>Goal, foul, card, and penalty moments
-            </li>
-          </ul>
-        </li>
-        <li class="flex items-center gap-4 px-5 py-4">
-          <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent-soft font-mono text-[13px] font-medium text-accent">4</span>
-          <span class="text-[15px] font-medium">Time taken to complete the task</span>
-        </li>
-      </ol>
-
-      <p class="mt-6 border-l-2 border-accent pl-4 text-[15px] text-zinc-600">
-        The final score will be calculated as the average of both runs.
+    <!-- ============ LEFT — REFERENCE IMAGE ============ -->
+    <aside class="lg:sticky lg:top-8">
+      <a href="reference-images/reference-image.png" target="_blank" rel="noopener" class="group block overflow-hidden rounded-2xl border border-zinc-900/[0.07] bg-white shadow-card transition hover:border-accent/30">
+        <img src="reference-images/reference-image.png" alt="Reference image — televised broadcast UI for the 3D football match" class="block w-full transition duration-300 group-hover:scale-[1.01]" />
+      </a>
+      <p class="mt-3 flex items-center gap-2 text-[13px] text-zinc-500">
+        <span class="font-mono text-xs text-zinc-400">REF</span>
+        The visual target for layout, styling and broadcast feel.
       </p>
-    </section>
+    </aside>
 
-    <!-- ============ FOOTER ============ -->
-    <footer class="mt-20 flex flex-col gap-2 border-t border-zinc-900/[0.07] pt-6 text-xs text-zinc-400 sm:flex-row sm:justify-between">
-      <span>3D Football simulator · Project brief</span>
-      <span class="font-mono">projects/football-simulation/project-brief.md</span>
-    </footer>
+    <!-- ============ RIGHT — CONTENT ============ -->
+    <div class="space-y-9 xl:space-y-12">
 
+      <!-- HEADER -->
+      <header>
+        <h1 class="text-[28px] font-bold leading-[1.05] tracking-tight sm:text-[32px] xl:text-[36px]">3D Football simulator</h1>
+        <div class="mt-4 space-y-2 text-[15px] leading-relaxed text-zinc-600 xl:mt-6 xl:space-y-3 xl:text-[18px]">
+          <p>Browser-based 3D football match simulator — a 3-minute run that feels like a polished match highlights package.</p>
+          <p>Realistic player movement, smooth ball movement, camera transitions, scoreboard overlays, and a TV broadcast-style presentation.</p>
+        </div>
+      </header>
+
+      <!-- EVENTS -->
+      <section>
+        <div class="flex items-baseline gap-3">
+          <span class="font-mono text-xs text-zinc-400">01</span>
+          <h2 class="text-xs font-semibold uppercase tracking-[0.12em] text-zinc-500">Events</h2>
+        </div>
+
+        <ul class="mt-4 flex flex-wrap gap-2">
+          <li class="event-pill">
+            <span class="text-accent">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/><path d="M12 7.2l3.6 2.6-1.4 4.2H9.8L8.4 9.8z"/>
+                <path d="M12 7.2V3.8M15.6 9.8l2.9-1M14.2 14l1.8 2.5M9.8 14L8 16.5M8.4 9.8l-2.9-1"/>
+              </svg>
+            </span>
+            Kickoff
+          </li>
+          <li class="event-pill">
+            <span class="text-[#1f7a4d]">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="6" width="18" height="13" rx="1"/><path d="M8 6v13M13 6v13M3 11h18M3 15h18"/>
+              </svg>
+            </span>
+            Goal
+          </li>
+          <li class="event-pill">
+            <span class="text-[#8a8a82]">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10.3 3.7L20.3 13.7a1.5 1.5 0 0 1 0 2.1l-2.5 2.5a1.5 1.5 0 0 1-2.1 0L5.7 8.3"/>
+                <circle cx="6.5" cy="6.5" r="3"/>
+              </svg>
+            </span>
+            Foul
+          </li>
+          <li class="event-pill">
+            <span class="text-[#d9a400]">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                <rect x="6.5" y="3" width="11" height="18" rx="2" transform="rotate(8 12 12)"/>
+              </svg>
+            </span>
+            Yellow card
+          </li>
+          <li class="event-pill">
+            <span class="text-[#c0392b]">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                <rect x="6.5" y="3" width="11" height="18" rx="2" transform="rotate(8 12 12)"/>
+              </svg>
+            </span>
+            Red card
+          </li>
+          <li class="event-pill">
+            <span class="text-accent">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/>
+              </svg>
+            </span>
+            Penalty
+          </li>
+          <li class="event-pill">
+            <span class="text-ink">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/>
+              </svg>
+            </span>
+            Full time
+          </li>
+        </ul>
+      </section>
+
+      <!-- EVALUATION -->
+      <section>
+        <div class="flex items-baseline gap-3">
+          <span class="font-mono text-xs text-zinc-400">02</span>
+          <h2 class="text-xs font-semibold uppercase tracking-[0.12em] text-zinc-500">Evaluation Plan</h2>
+        </div>
+
+        <p class="mt-4 text-[14px] text-zinc-600">
+          Same prompt run twice per model · each output scored out of 10 · final score is the average of both runs.
+        </p>
+
+        <div class="mt-4 grid gap-2.5 sm:grid-cols-2">
+          <div class="eval-card flex items-center gap-3">
+            <span class="eval-badge">1</span>
+            <span class="eval-label">Similarity to the reference image</span>
+          </div>
+          <div class="eval-card flex items-center gap-3">
+            <span class="eval-badge">2</span>
+            <span class="eval-label">Code organization &amp; folder structure</span>
+          </div>
+          <div class="eval-card flex items-center gap-3">
+            <span class="eval-badge">4</span>
+            <span class="eval-label">Time taken to complete the task</span>
+          </div>
+          <div class="eval-card sm:col-span-2">
+            <div class="flex items-center gap-3">
+              <span class="eval-badge">3</span>
+              <span class="eval-label">Overall visual design and polish</span>
+            </div>
+            <div class="mt-2.5 flex flex-wrap gap-x-4 gap-y-1.5 pl-9 text-[13px] text-zinc-500">
+              <span class="flex items-center gap-2"><span class="h-1 w-1 shrink-0 rounded-full bg-zinc-400"></span>Animation quality</span>
+              <span class="flex items-center gap-2"><span class="h-1 w-1 shrink-0 rounded-full bg-zinc-400"></span>Ball movement &amp; match flow</span>
+              <span class="flex items-center gap-2"><span class="h-1 w-1 shrink-0 rounded-full bg-zinc-400"></span>Goal, foul, card &amp; penalty moments</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="flex flex-col gap-1 border-t border-zinc-900/[0.07] pt-4 text-xs text-zinc-400 sm:flex-row sm:justify-between">
+        <span>3D Football simulator · Project brief</span>
+        <span class="font-mono">projects/football-simulation/project-brief.md</span>
+      </footer>
+
+    </div>
   </main>
 </body>
 </html>
