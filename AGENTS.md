@@ -21,14 +21,10 @@ run football-simulation with prompt projects/football-simulation/prompts/p01-bas
 
 | Model | Slug |
 |-------|------|
+| GLM 5.2 | `GLM5.2` |
 | GPT 5.5 | `GPT5.5` |
-| GPT 5.3 Codex | `GPT5.3Codex` |
 | Composer 2.5 | `composer2.5` |
-| Claude 4.5 Sonnet | `claude4.5sonnet` |
-| Claude 4.6 Sonnet | `claude4.6sonnet` |
 | Claude Opus 4.8 | `claudeopus4.8` |
-| Gemini 3 Flash | `gemini3flash` |
-| Gemini 3.1 Pro | `gemini3.1pro` |
 
 If the model is not listed, ask the user for a slug before proceeding.
 
