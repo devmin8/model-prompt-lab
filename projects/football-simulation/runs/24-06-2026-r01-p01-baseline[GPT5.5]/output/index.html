@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pitchside — 3D Match Simulator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;0,800;1,800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="importmap">
+    {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js"}}
+  </script>
+</head>
+<body>
+  <div id="app">
+    <canvas id="scene" aria-label="3D football match"></canvas>
+    <div class="vignette"></div>
+
+    <header class="brand"><span class="brand-mark">P</span><span>PITCHSIDE</span><small>LIVE SIMULATION</small></header>
+
+    <section class="scoreboard" aria-live="polite">
+      <div class="team home-team"><div class="crest crest-home">N</div><span id="homeName">NORTHBANK</span></div>
+      <div class="score-cell"><strong><span id="homeScore">0</span><i>–</i><span id="awayScore">0</span></strong></div>
+      <div class="team away-team"><span id="awayName">RIVERSIDE</span><div class="crest crest-away">R</div></div>
+      <div class="clock"><b id="clock">00:00</b><span id="phase">FIRST HALF</span></div>
+    </section>
+
+    <div class="status-pill" id="statusPill">KICK OFF</div>
+
+    <aside class="goal-card" id="goalCard">
+      <div class="goal-head"><em>GOAL!</em><div class="mini-crest" id="goalCrest">N</div></div>
+      <div class="goal-body">
+        <div class="portrait"><span id="portraitNumber">10</span></div>
+        <div><strong><span id="scorerNumber">10</span> <span id="scorerName">MARCUS REED</span></strong>
+          <div class="goal-meta"><b id="goalMinute">18′</b><span id="assistText">ASSIST: 7 J. SILVA</span></div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="card-flash" id="cardFlash"><span id="cardIcon"></span><div><small id="cardType">YELLOW CARD</small><strong id="cardPlayer">4 D. MORRIS</strong></div></div>
+
+    <aside class="full-time" id="fullTime">
+      <small>FULL TIME</small>
+      <div class="final-score">
+        <div class="crest crest-home">N</div><strong><span id="finalHome">3</span> – <span id="finalAway">2</span></strong><div class="crest crest-away">R</div>
+      </div>
+      <div class="potm"><span>PLAYER OF THE MATCH</span><b>10 MARCUS REED</b><em>9.1 ★</em></div>
+      <h3>KEY MOMENTS</h3>
+      <div id="keyMoments" class="key-moments"></div>
+      <button class="primary" data-action="new">NEW MATCH <span>→</span></button>
+    </aside>
+
+    <section class="broadcast-deck">
+      <div class="controls">
+        <button data-action="pause"><span>Ⅱ</span> PAUSE</button>
+        <button data-action="resume"><span>▶</span> RESUME</button>
+        <button data-action="restart"><span>↻</span> RESTART</button>
+        <button data-action="new"><span>⚙</span> NEW MATCH</button>
+      </div>
+      <div class="speed">
+        <small>SPEED</small>
+        <div><button class="active" data-speed="1">1x</button><button data-speed="2">2x</button><button data-speed="3">3x</button></div>
+      </div>
+      <div class="timeline-wrap">
+        <div class="timeline-title"><span>MATCH EVENTS</span><b><i></i> LIVE</b></div>
+        <div class="timeline" id="timeline"><div class="progress" id="timelineProgress"></div></div>
+        <div class="ticks"><span>0′</span><span>15′</span><span>30′</span><span>45′</span><span>60′</span><span>75′</span><span>90′</span></div>
+      </div>
+    </section>
+
+    <section class="ticker"><span class="ticker-label">◉ &nbsp; COMMENTARY</span><b id="tickerMinute">00′</b><p id="commentary">The teams emerge under the lights. Everything is set at Pitchside Stadium.</p></section>
+    <nav class="phases"><span class="active" data-phase="first">FIRST HALF</span><i></i><span data-phase="half">HALF TIME</span><i></i><span data-phase="second">SECOND HALF</span><i></i><span data-phase="full">FULL TIME</span></nav>
+
+    <div class="setup" id="setup">
+      <div class="setup-panel">
+        <div class="setup-brand"><span class="brand-mark">P</span><div><b>PITCHSIDE</b><small>3D FOOTBALL SIMULATOR</small></div></div>
+        <h1>Tonight's match.<br><em>Your way.</em></h1>
+        <p>Set the teams and colours, then take your seat for a three-minute broadcast highlights reel.</p>
+        <div class="team-fields">
+          <label>HOME TEAM<input id="homeInput" value="Northbank"></label>
+          <label>HOME KIT<input id="homeColor" type="color" value="#1656d9"></label>
+          <label>AWAY TEAM<input id="awayInput" value="Riverside"></label>
+          <label>AWAY KIT<input id="awayColor" type="color" value="#e63946"></label>
+        </div>
+        <button class="kickoff" id="kickoffBtn">START THE MATCH <span>→</span></button>
+        <small class="hint">Use Pause, Resume and speed controls during play</small>
+      </div>
+      <div class="setup-visual"><div class="big-ball">⚽</div><span>UNDER THE<br>LIGHTS</span></div>
+    </div>
+  </div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

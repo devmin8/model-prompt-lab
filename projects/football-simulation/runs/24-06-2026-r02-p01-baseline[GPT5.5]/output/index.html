@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pitchside — 3D Football Simulator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;0,800;1,800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="importmap">
+    {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js"}}
+  </script>
+</head>
+<body>
+  <main id="app">
+    <div id="scene"></div>
+    <div class="vignette"></div>
+    <header class="brand"><span class="brand-mark">P</span><strong>PITCHSIDE</strong><small>LIVE MATCH ENGINE</small></header>
+
+    <section class="scorebug" aria-label="Scoreboard">
+      <div class="team home"><span class="crest" id="homeCrest">N</span><span id="homeName">NORTHSTAR</span></div>
+      <div class="score"><strong><span id="homeScore">0</span><i>–</i><span id="awayScore">0</span></strong></div>
+      <div class="team away"><span id="awayName">RIVERTON</span><span class="crest" id="awayCrest">R</span></div>
+      <div class="clock"><b id="clock">00:00</b><span id="phase">FIRST HALF</span></div>
+    </section>
+
+    <section class="goal-card" id="goalCard" aria-live="polite">
+      <div class="goal-head"><em>GOAL!</em><span class="mini-crest" id="goalCrest">N</span></div>
+      <div class="goal-body">
+        <div class="shirt-number" id="goalNumber">10</div>
+        <div><strong id="goalPlayer">JAMIE REYES</strong><b id="goalMinute">18'</b><span id="goalAssist">ASSIST: 8 A. MORGAN</span></div>
+      </div>
+    </section>
+
+    <div class="status-pill" id="statusPill">KICK OFF</div>
+
+    <section class="control-deck">
+      <div class="controls">
+        <button id="pauseBtn"><span>Ⅱ</span> PAUSE</button>
+        <button id="resumeBtn"><span>▶</span> RESUME</button>
+        <button id="restartBtn"><span>↻</span> RESTART</button>
+        <button id="newBtn"><span>⌘</span> NEW MATCH</button>
+      </div>
+      <div class="speed">
+        <label>SPEED</label>
+        <div><button class="speed-btn active" data-speed="1">1x</button><button class="speed-btn" data-speed="2">2x</button><button class="speed-btn" data-speed="3">3x</button></div>
+      </div>
+      <div class="timeline-wrap">
+        <div class="timeline-head"><span>MATCH EVENTS</span><b><i></i> LIVE</b></div>
+        <div class="timeline" id="timeline">
+          <div class="progress" id="progress"></div>
+          <span class="tick" style="left:0">0'</span><span class="tick" style="left:25%">25'</span>
+          <span class="tick" style="left:50%">45'</span><span class="tick" style="left:75%">70'</span><span class="tick" style="left:100%">90'</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="commentary">
+      <div class="commentary-label"><span>◉</span> COMMENTARY</div>
+      <strong id="commentMinute">0'</strong>
+      <p id="commentText">The floodlights are on. Northstar kick us off under a clear night sky.</p>
+    </section>
+
+    <div class="phase-rail"><span>FIRST HALF</span><i></i><span>HALF TIME</span><i></i><span>SECOND HALF</span><i></i><span>FULL TIME</span></div>
+
+    <section class="setup" id="setup">
+      <div class="setup-card">
+        <div class="setup-kicker"><span></span> PITCHSIDE MATCH CENTRE</div>
+        <h1>Tonight's match,<br><em>your way.</em></h1>
+        <p>Set the teams and colours. The match engine will handle the drama.</p>
+        <div class="team-setup">
+          <label>HOME TEAM<input id="homeInput" value="Northstar" maxlength="12"><input id="homeColor" type="color" value="#1557d6"></label>
+          <div class="versus">VS</div>
+          <label>AWAY TEAM<input id="awayInput" value="Riverton" maxlength="12"><input id="awayColor" type="color" value="#d51f35"></label>
+        </div>
+        <button class="start-btn" id="startBtn">START MATCH <span>→</span></button>
+        <small>3 MINUTE HIGHLIGHTS • LIVE SIMULATION</small>
+      </div>
+    </section>
+
+    <section class="fulltime" id="fulltime">
+      <div class="ft-kicker">FULL TIME</div>
+      <h2><span id="ftHome">NORTHSTAR</span> <strong id="ftScore">3 – 2</strong> <span id="ftAway">RIVERTON</span></h2>
+      <div class="potm"><small>PLAYER OF THE MATCH</small><b>10 JAMIE REYES</b><span>9.2 ★</span></div>
+      <div class="moments" id="moments"></div>
+      <button id="ftNewBtn">NEW MATCH →</button>
+    </section>
+  </main>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
