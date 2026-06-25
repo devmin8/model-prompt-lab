@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Pitchside — 3D Football Match Simulator</title>
+<link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <canvas id="scene"></canvas>
+
+  <!-- Setup -->
+  <div id="setup">
+    <div class="setup-card">
+      <h1>PITCHSIDE</h1>
+      <div class="sub">Broadcast-style 3D football match simulator — pick teams & kits</div>
+      <div class="teams">
+        <div class="team-block">
+          <label>Home team</label>
+          <input id="homeName" type="text" value="RED FC" maxlength="14" />
+          <label>Kit colour</label>
+          <div class="swatches" data-team="home"></div>
+        </div>
+        <div class="vs">VS</div>
+        <div class="team-block">
+          <label>Away team</label>
+          <input id="awayName" type="text" value="BLUE UNITED" maxlength="14" />
+          <label>Kit colour</label>
+          <div class="swatches" data-team="away"></div>
+        </div>
+      </div>
+      <div class="start-row">
+        <button class="primary" id="startBtn">KICK OFF →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HUD -->
+  <div id="hud" class="hidden">
+    <div class="scoreboard">
+      <div class="team-line home">
+        <div class="crest" id="homeCrest">R</div>
+        <div class="tname" id="homeNameLbl">RED FC</div>
+      </div>
+      <div class="score">
+        <span class="s" id="scoreH">0</span>
+        <span style="color:var(--muted)">-</span>
+        <span class="s" id="scoreA">0</span>
+      </div>
+      <div class="team-line away">
+        <div class="crest" id="awayCrest">B</div>
+        <div class="tname" id="awayNameLbl">BLUE UNITED</div>
+      </div>
+    </div>
+    <div class="match-clock">
+      <span class="live-dot" id="liveDot"></span>
+      <span id="clockTxt">00:00</span>
+      <span class="phase" id="phaseTxt">1ST HALF</span>
+    </div>
+
+    <!-- Goal overlay -->
+    <div class="goal-overlay" id="goalOverlay">
+      <div class="goal-banner">GOAL!</div>
+      <div class="goal-portrait" id="goalPortrait">9</div>
+      <div class="goal-info">
+        <div class="gname" id="goalName">Striker</div>
+        <div class="gnum" id="goalNum">#9</div>
+        <div class="gmin" id="goalMin">12'</div>
+      </div>
+      <div class="goal-assist" id="goalAssist">Assist: #10</div>
+    </div>
+
+    <!-- Commentary ticker -->
+    <div class="ticker">
+      <div class="tag">LIVE</div>
+      <div class="track" id="tickerTrack"><span>Welcome to Pitchside — match starting…</span></div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <button class="ctrl-btn" id="pauseBtn">⏸ Pause</button>
+      <button class="ctrl-btn" id="resumeBtn" style="display:none">▶ Resume</button>
+      <button class="ctrl-btn danger" id="restartBtn">↻ Restart</button>
+      <button class="ctrl-btn" id="newBtn">✦ New Match</button>
+      <div class="spd-group">
+        <button class="ctrl-btn active" data-spd="1">1x</button>
+        <button class="ctrl-btn" data-spd="2">2x</button>
+        <button class="ctrl-btn" data-spd="3">3x</button>
+      </div>
+      <div class="timeline-wrap">
+        <div class="timeline" id="timeline">
+          <div class="progress" id="tlProgress"></div>
+        </div>
+      </div>
+      <div style="font-size:11px;font-weight:800;letter-spacing:1.5px;color:var(--live)">● LIVE</div>
+    </div>
+  </div>
+
+  <!-- Full time -->
+  <div id="fulltime">
+    <div class="ft-card">
+      <h2>FULL TIME</h2>
+      <div class="ft-score" id="ftScore">2 - 2</div>
+      <div class="potm">PLAYER OF THE MATCH</div>
+      <div class="potm-name" id="potmName">#9 Striker</div>
+      <ul class="key-moments" id="keyMoments"></ul>
+      <button class="primary" id="ftNewBtn">✦ NEW MATCH</button>
+    </div>
+  </div>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.161.0/build/three.module.js"
+    }
+  }
+  </script>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

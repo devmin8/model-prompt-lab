@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pitchside — 3D Football Match Simulator</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <!-- 3D canvas mounts here -->
+  <div id="stage"></div>
+
+  <!-- ====================== SETUP SCREEN ====================== -->
+  <section id="setup-screen" class="overlay-screen">
+    <div class="setup-card">
+      <h1 class="brand"><span class="brand-dot"></span> PITCHSIDE</h1>
+      <p class="brand-sub">3D Football Match Simulator · Broadcast Edition</p>
+
+      <div class="setup-teams">
+        <div class="setup-team">
+          <label class="setup-label">Home Team</label>
+          <input id="home-name" class="setup-input" type="text" maxlength="14" value="CHELSEA" />
+          <div class="kit-picker">
+            <button data-kit="home" data-color="#0b5bd3" class="kit-swatch selected" style="--c:#0b5bd3"></button>
+            <button data-kit="home" data-color="#1a1a1a" class="kit-swatch" style="--c:#1a1a1a"></button>
+            <button data-kit="home" data-color="#eaeaea" class="kit-swatch" style="--c:#eaeaea"></button>
+            <button data-kit="home" data-color="#f4c20d" class="kit-swatch" style="--c:#f4c20d"></button>
+            <button data-kit="home" data-color="#7a1fa2" class="kit-swatch" style="--c:#7a1fa2"></button>
+          </div>
+        </div>
+        <div class="vs">VS</div>
+        <div class="setup-team">
+          <label class="setup-label">Away Team</label>
+          <input id="away-name" class="setup-input" type="text" maxlength="14" value="ARSENAL" />
+          <div class="kit-picker">
+            <button data-kit="away" data-color="#d3141f" class="kit-swatch selected" style="--c:#d3141f"></button>
+            <button data-kit="away" data-color="#0a7d2c" class="kit-swatch" style="--c:#0a7d2c"></button>
+            <button data-kit="away" data-color="#ff6a00" class="kit-swatch" style="--c:#ff6a00"></button>
+            <button data-kit="away" data-color="#0fbfbf" class="kit-swatch" style="--c:#0fbfbf"></button>
+            <button data-kit="away" data-color="#3a3a3a" class="kit-swatch" style="--c:#3a3a3a"></button>
+          </div>
+        </div>
+      </div>
+
+      <button id="kickoff-btn" class="primary-btn">KICK OFF</button>
+      <p class="setup-hint">A ~3 minute highlights reel · goals, cards, saves, penalty</p>
+    </div>
+  </section>
+
+  <!-- ====================== BROADCAST HUD ====================== -->
+  <div id="hud" class="hidden">
+    <!-- Top scoreboard -->
+    <div id="scoreboard">
+      <div class="sb-side sb-home">
+        <span class="sb-crest" id="crest-home"></span>
+        <span class="sb-name" id="name-home">HOME</span>
+      </div>
+      <div class="sb-center">
+        <div class="sb-score" id="sb-score">0 — 0</div>
+        <div class="sb-clock" id="sb-clock">00:00</div>
+      </div>
+      <div class="sb-side sb-away">
+        <span class="sb-name" id="name-away">AWAY</span>
+        <span class="sb-crest" id="crest-away"></span>
+      </div>
+      <div class="sb-phase" id="sb-phase">1ST HALF</div>
+    </div>
+
+    <!-- Goal overlay (bottom-left) -->
+    <div id="goal-overlay" class="hidden">
+      <div class="goal-banner">GOAL!</div>
+      <div class="goal-card">
+        <div class="goal-portrait" id="goal-portrait"></div>
+        <div class="goal-info">
+          <div class="goal-num" id="goal-num">10</div>
+          <div class="goal-name" id="goal-name">PLAYER</div>
+          <div class="goal-meta">
+            <span class="goal-min" id="goal-min">0'</span>
+            <span class="goal-assist" id="goal-assist"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card / event flash -->
+    <div id="card-flash" class="hidden">
+      <div class="cf-icon" id="cf-icon"></div>
+      <div class="cf-info">
+        <div class="cf-name" id="cf-name"></div>
+        <div class="cf-reason" id="cf-reason"></div>
+      </div>
+    </div>
+
+    <!-- Commentary ticker -->
+    <div id="ticker">
+      <div class="ticker-label">COMMENTARY</div>
+      <div class="ticker-track"><span id="ticker-text">Welcome to Pitchside…</span></div>
+    </div>
+
+    <!-- Bottom control bar -->
+    <div id="controls">
+      <div class="ctrl-left">
+        <button id="btn-play" class="ctrl-btn" title="Pause/Resume"><span id="play-icon">❚❚</span></button>
+        <button id="btn-restart" class="ctrl-btn small">RESTART</button>
+        <button id="btn-new" class="ctrl-btn small">NEW MATCH</button>
+      </div>
+
+      <div class="ctrl-mid">
+        <div class="timeline-wrap">
+          <div class="timeline-phases">
+            <span>KO</span><span>HT</span><span>FT</span>
+          </div>
+          <div id="timeline" class="timeline">
+            <div id="timeline-progress" class="timeline-progress"></div>
+            <div id="timeline-markers" class="timeline-markers"></div>
+            <div id="timeline-live" class="timeline-live">
+              <span class="live-dot"></span><span class="live-text">LIVE</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ctrl-right">
+        <div class="speed-group">
+          <button data-speed="1" class="speed-btn active">1×</button>
+          <button data-speed="2" class="speed-btn">2×</button>
+          <button data-speed="3" class="speed-btn">3×</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Full-time overlay -->
+    <div id="ft-overlay" class="hidden">
+      <div class="ft-card">
+        <div class="ft-label">FULL TIME</div>
+        <div class="ft-score">
+          <span class="ft-side">
+            <span class="sb-crest" id="ft-crest-home"></span>
+            <span id="ft-name-home">HOME</span>
+          </span>
+          <span class="ft-vs" id="ft-score-text">0 — 0</span>
+          <span class="ft-side">
+            <span id="ft-name-away">AWAY</span>
+            <span class="sb-crest" id="ft-crest-away"></span>
+          </span>
+        </div>
+        <div class="ft-potm">
+          <div class="ft-potm-label">PLAYER OF THE MATCH</div>
+          <div class="ft-potm-name" id="ft-potm">—</div>
+        </div>
+        <div class="ft-moments">
+          <div class="ft-moments-label">KEY MOMENTS</div>
+          <ul id="ft-moments-list"></ul>
+        </div>
+        <button id="ft-new" class="primary-btn">NEW MATCH</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

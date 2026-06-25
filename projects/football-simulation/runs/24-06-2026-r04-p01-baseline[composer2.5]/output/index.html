@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pitchside — 3D Football Simulator</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <div id="app">
+    <canvas id="pitch-canvas"></canvas>
+
+    <!-- Setup overlay -->
+    <div id="setup-overlay" class="overlay visible">
+      <div class="setup-card">
+        <h1>PITCHSIDE</h1>
+        <p class="subtitle">3D Football Match Simulator</p>
+        <div class="setup-grid">
+          <div class="team-setup home">
+            <label>Home Team</label>
+            <input type="text" id="home-name" value="Chelsea" maxlength="20" />
+            <label>Kit Colour</label>
+            <input type="color" id="home-color" value="#034694" />
+          </div>
+          <div class="vs">VS</div>
+          <div class="team-setup away">
+            <label>Away Team</label>
+            <input type="text" id="away-name" value="Arsenal" maxlength="20" />
+            <label>Kit Colour</label>
+            <input type="color" id="away-color" value="#EF0107" />
+          </div>
+        </div>
+        <button id="start-match" class="btn-primary">KICK OFF</button>
+      </div>
+    </div>
+
+    <!-- Scoreboard -->
+    <header id="scoreboard" class="scoreboard hidden">
+      <div class="team-block home">
+        <div class="crest" id="home-crest"></div>
+        <span class="team-name" id="sb-home-name">Chelsea</span>
+      </div>
+      <div class="score-block">
+        <div class="score" id="sb-score">0 — 0</div>
+        <div class="clock" id="sb-clock">00:00</div>
+        <div class="phase" id="sb-phase">First Half</div>
+      </div>
+      <div class="team-block away">
+        <span class="team-name" id="sb-away-name">Arsenal</span>
+        <div class="crest" id="away-crest"></div>
+      </div>
+    </header>
+
+    <!-- Goal overlay -->
+    <div id="goal-overlay" class="goal-overlay hidden">
+      <div class="goal-banner">
+        <span class="goal-text">GOAL!</span>
+        <div class="goal-crest" id="goal-crest"></div>
+      </div>
+      <div class="scorer-info">
+        <div class="scorer-number" id="goal-number">20</div>
+        <div class="scorer-details">
+          <div class="scorer-name" id="goal-scorer">COLE PALMER</div>
+          <div class="goal-minute" id="goal-minute">64'</div>
+        </div>
+      </div>
+      <div class="assist-line" id="goal-assist">Assist: 7 R. STERLING</div>
+    </div>
+
+    <!-- Card overlay -->
+    <div id="card-overlay" class="card-overlay hidden">
+      <div class="card-icon" id="card-icon"></div>
+      <div class="card-player" id="card-player"></div>
+    </div>
+
+    <!-- Commentary -->
+    <div id="commentary-bar" class="commentary-bar hidden">
+      <span class="commentary-label">COMMENTARY</span>
+      <span class="commentary-text" id="commentary-text"></span>
+    </div>
+
+    <!-- Control bar -->
+    <footer id="control-bar" class="control-bar hidden">
+      <div class="controls-left">
+        <button class="ctrl-btn" id="btn-pause">PAUSE</button>
+        <button class="ctrl-btn" id="btn-resume">RESUME</button>
+        <button class="ctrl-btn" id="btn-restart">RESTART</button>
+        <button class="ctrl-btn" id="btn-new">NEW MATCH</button>
+      </div>
+      <div class="controls-center">
+        <button class="speed-btn active" data-speed="1">1x</button>
+        <button class="speed-btn" data-speed="2">2x</button>
+        <button class="speed-btn" data-speed="3">3x</button>
+      </div>
+      <div class="controls-right">
+        <div class="live-indicator"><span class="live-dot"></span> LIVE</div>
+      </div>
+      <div class="timeline-wrap">
+        <div class="timeline" id="timeline">
+          <div class="timeline-track"></div>
+          <div class="timeline-markers" id="timeline-markers"></div>
+          <div class="timeline-cursor" id="timeline-cursor"></div>
+        </div>
+        <div class="timeline-labels">
+          <span>0'</span><span>15'</span><span>30'</span><span>45'</span>
+          <span>60'</span><span>75'</span><span>90'</span>
+        </div>
+      </div>
+      <div class="phase-bar">
+        <span class="phase-step" data-phase="first">FIRST HALF</span>
+        <span class="phase-step" data-phase="ht">HALF TIME</span>
+        <span class="phase-step" data-phase="second">SECOND HALF</span>
+        <span class="phase-step" data-phase="ft">FULL TIME</span>
+      </div>
+    </footer>
+
+    <!-- Full time panel -->
+    <aside id="fulltime-panel" class="fulltime-panel hidden">
+      <h2>FULL TIME</h2>
+      <div class="ft-score" id="ft-score">Chelsea 2 — 1 Arsenal</div>
+      <div class="potm">
+        <div class="potm-label">PLAYER OF THE MATCH</div>
+        <div class="potm-player">
+          <span class="potm-number" id="potm-number">20</span>
+          <span class="potm-name" id="potm-name">COLE PALMER</span>
+          <span class="potm-rating" id="potm-rating">9.2 ★</span>
+        </div>
+      </div>
+      <div class="key-moments">
+        <div class="km-label">KEY MOMENTS</div>
+        <ul id="key-moments-list"></ul>
+      </div>
+      <button class="btn-primary" id="ft-new-match">NEW MATCH ›</button>
+    </aside>
+
+    <!-- Half time banner -->
+    <div id="halftime-banner" class="halftime-banner hidden">
+      <span>HALF TIME</span>
+    </div>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
